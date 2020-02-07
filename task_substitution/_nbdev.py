@@ -11,8 +11,8 @@ modules = ["core.py",
            "model.py",
            "recover_missing.py"]
 
-doc_url = "https://fastai.github.io/task_substitution/"
+doc_url = "https://abhishek.github.io/task_substitution/"
 
-git_url = "https://github.com/fastai/task_substitution/tree/master/"
+git_url = "https://github.com/abhishek/task_substitution/tree/master/"
 
 def custom_doc_links(name): return None
