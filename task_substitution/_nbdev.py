@@ -4,12 +4,16 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"Dataset": "01_data.ipynb",
          "Model": "02_model.ipynb",
-         "RecoverMissing": "03_recover_missing.ipynb"}
+         "RecoverMissing": "03_recover_missing.ipynb",
+         "download_data": "04_external_data.ipynb",
+         "untar_data": "04_external_data.ipynb",
+         "get_fake_data": "04_external_data.ipynb"}
 
 modules = ["core.py",
            "data.py",
            "model.py",
-           "recover_missing.py"]
+           "recover_missing.py",
+           "external_data.py"]
 
 doc_url = "https://abhishek.github.io/task_substitution/"
 

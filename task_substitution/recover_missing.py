@@ -8,6 +8,7 @@ import numpy as np
 
 from .data import *
 from .model import *
+from .external_data import *
 
 # Cell
 class RecoverMissing:
@@ -52,7 +53,6 @@ class RecoverMissing:
         # create target variable
         y_train = train[self.dataset_args['missing_fld']]
         X_train = train.drop(self.dataset_args['missing_fld'], axis=1)
-
 
         X_test = test.drop(self.dataset_args['missing_fld'], axis=1)
 

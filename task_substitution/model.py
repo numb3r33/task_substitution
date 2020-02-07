@@ -50,6 +50,6 @@ class Model:
         return np.array(fold_perfs)
 
     def predict(self, Xtest)->np.ndarray:
-        preds = self.model.predict(self.ltest)
+        preds = self.model.predict(Xtest)
 
         return np.array(preds)
