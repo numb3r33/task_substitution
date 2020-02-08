@@ -6,6 +6,8 @@ __all__ = ['_pct_missing_values', '_preprocess_categorical', '_ignore_flds', '_s
 import pandas as pd
 import numpy as np
 
+from .external_data import *
+
 # Cell
 def _pct_missing_values(feature:pd.Series)->float:
     """
