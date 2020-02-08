@@ -48,13 +48,13 @@ class RecoverMissing:
 
         # split the dataset into train and test based on missing values in the
         # feature which we want to recover
-        train, test = Dataset.split_train_test(df_cpy, self.dataset_args['missing_fld'])
+        train, test = Dataset.split_train_test(df_cpy, self.dataset_args['target_fld'])
 
         # create target variable
-        y_train = train[self.dataset_args['missing_fld']]
-        X_train = train.drop(self.dataset_args['missing_fld'], axis=1)
+        y_train = train[self.dataset_args['target_fld']]
+        X_train = train.drop(self.dataset_args['target_fld'], axis=1)
 
-        X_test = test.drop(self.dataset_args['missing_fld'], axis=1)
+        X_test = test.drop(self.dataset_args['target_fld'], axis=1)
 
         # train model to recover missing values
         fold_runs, y_test = self.recover(X_train, y_train, X_test)
@@ -63,6 +63,6 @@ class RecoverMissing:
         y_test = pd.Series(y_test, index=test.index)
 
         recovered_target = pd.concat([y_train, y_test]).reindex(orig_index_order)
-        df_cpy.loc[:, self.dataset_args['missing_fld']] = recovered_target
+        df_cpy.loc[:, self.dataset_args['target_fld']] = recovered_target
 
         return df_cpy

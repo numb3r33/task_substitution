@@ -38,7 +38,7 @@ def _split_train_test(df:pd.DataFrame, target_fld:str)->(pd.DataFrame, pd.DataFr
     Given a dataframe with target name it would return train and test sets
     based on presence of value in the target feature or not.
     """
-    mask = df[missing_fld].notnull()
+    mask = df[target_fld].notnull()
     train = df.loc[mask, :].sample(frac=1.)
     test  = df.loc[~mask, :]
 
