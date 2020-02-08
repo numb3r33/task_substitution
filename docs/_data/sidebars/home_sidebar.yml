@@ -7,24 +7,27 @@ entries:
 - folders:
   - folderitems:
     - output: web,pdf
-      title: Export to modules
-      url: /export.html
+      title: Overview
+      url: /
     - output: web,pdf
-      title: Convert to html
-      url: /export2html.html
+      title: Core
+      url: /core
     - output: web,pdf
-      title: Show doc
-      url: /showdoc.html
+      title: Dataset
+      url: /data
     - output: web,pdf
-      title: Test functions
-      url: /test.html
+      title: Model
+      url: /model
     - output: web,pdf
-      title: Core functions
-      url: /core.html
+      title: Runner
+      url: /recover_missing
     - output: web,pdf
-      title: Command line functions
-      url: /cli.html
+      title: External Data
+      url: /external_data
+    - output: web,pdf
+      title: TrainTestSimilarity
+      url: /train_test_similarity
     output: web
-    title: Notebook
+    title: task_substitution
   output: web
   title: Sidebar

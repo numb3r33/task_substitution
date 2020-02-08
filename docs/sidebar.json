@@ -1,10 +1,11 @@
 {
-  "Notebook": {
-    "Export to modules": "/export",
-    "Convert to html": "/export2html",
-    "Show doc": "/showdoc",
-    "Test functions": "/test",
-    "Core functions": "/core",
-    "Command line functions": "/cli"
+  "task_substitution": {
+    "Overview": "/",
+    "Core": "/core",
+    "Dataset": "/data",
+    "Model": "/model",
+    "Runner": "/recover_missing",
+    "External Data": "/external_data",
+    "TrainTestSimilarity": "/train_test_similarity"
   }
 }
