@@ -38,10 +38,14 @@ class Dataset:
         return self.df
 
     @classmethod
-    def split_train_test(cls, df, target_fld):
+    def split_train_test_by_null(cls, df:pd.DataFrame, target_fld:str)->(pd.DataFrame, pd.DataFrame):
+        train, test = _split_by_null(df, target_fld)
+        return train, test
+
+    @classmethod
+    def split_train_test(cls, df:pd.DataFrame, split_args:dict)->(pd.DataFrame, pd.DataFrame):
         """
-        Splits the dataframe into train and test dataset based on the rows having values
-        for missing feature or not.
+        Splits the dataframe into train and test sets.
         """
-        train, test = _split_train_test(df, target_fld)
+        train, test = _split_train_test(df, split_args)
         return train, test
