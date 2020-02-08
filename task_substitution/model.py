@@ -10,6 +10,8 @@ import string
 import lightgbm as lgb
 from sklearn.model_selection import KFold
 
+from .data import *
+
 # Cell
 class Model:
     def __init__(self, **model_kwargs):
