@@ -15,7 +15,8 @@ modules = ["core.py",
            "data.py",
            "model.py",
            "recover_missing.py",
-           "external_data.py"]
+           "external_data.py",
+           "train_test_similarity.py"]
 
 doc_url = "https://abhishek.github.io/task_substitution/"
 
