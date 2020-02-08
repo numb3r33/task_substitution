@@ -12,13 +12,13 @@ from .core import *
 class Dataset:
     def __init__(self, df, **kwargs):
         self.df = df
-        self.missing_fld = kwargs['missing_fld']
+        self.target_fld = kwargs['target_fld']
         self.ignore_flds = kwargs['ignore_flds']
         self.cat_flds = kwargs['cat_flds']
 
     @property
     def target(self):
-        return self.data[self.missing_fld]
+        return self.data[self.target_fld]
 
     def remove_ignore_flds(self)->pd.DataFrame:
         if self.ignore_flds is not None:
@@ -38,10 +38,10 @@ class Dataset:
         return self.df
 
     @classmethod
-    def split_train_test(cls, df, missing_fld):
+    def split_train_test(cls, df, target_fld):
         """
         Splits the dataframe into train and test dataset based on the rows having values
         for missing feature or not.
         """
-        train, test = _split_train_test(df, missing_fld)
+        train, test = _split_train_test(df, target_fld)
         return train, test

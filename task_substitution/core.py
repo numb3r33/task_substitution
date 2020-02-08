@@ -33,10 +33,10 @@ def _ignore_flds(df:pd.DataFrame, ignore_flds:list)->pd.DataFrame:
     return df_cpy
 
 # Cell
-def _split_train_test(df:pd.DataFrame, missing_fld:str)->(pd.DataFrame, pd.DataFrame):
+def _split_train_test(df:pd.DataFrame, target_fld:str)->(pd.DataFrame, pd.DataFrame):
     """
     Given a dataframe with target name it would return train and test sets
-    based on presence of value in the target feature or not
+    based on presence of value in the target feature or not.
     """
     mask = df[missing_fld].notnull()
     train = df.loc[mask, :].sample(frac=1.)

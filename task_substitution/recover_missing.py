@@ -13,8 +13,8 @@ from .external_data import *
 # Cell
 class RecoverMissing:
     """Recover missing values for a feature using task substitution."""
-    def __init__(self, missing_fld:str, cat_flds:list=None, ignore_flds:list=None, **model_args):
-        self.dataset_args = {'missing_fld': missing_fld,
+    def __init__(self, target_fld:str, cat_flds:list=None, ignore_flds:list=None, **model_args):
+        self.dataset_args = {'target_fld': target_fld,
                              'cat_flds': cat_flds,
                              'ignore_flds': ignore_flds
                             }
