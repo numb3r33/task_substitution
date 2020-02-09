@@ -47,5 +47,6 @@ def _split_by_null(df:pd.DataFrame, target_fld:str)->(pd.DataFrame, pd.DataFrame
 
 # Cell
 def _split_train_test(df:pd.DataFrame, split_params:dict)->(pd.DataFrame,pd.DataFrame):
+    """Splits a dataframe into train and test based on split parameters using sklearn.model_selection.train_test_split"""
     train, test = train_test_split(df, **split_params)
     return train, test
