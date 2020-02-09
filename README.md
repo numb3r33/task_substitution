@@ -2,7 +2,7 @@
 > Solve an auxiliary task using ML.
 
 
-### This library was created by using [nbdev](https://github.com/fastai/nbdev), please check it out.
+**This library was created by using [nbdev](https://github.com/fastai/nbdev), please check it out.**
 
 **Task Substitution** is a method of solving an auxiliary problem ( with different features and different target ) in order to better understand the initial problem and solving it efficiently. 
 
