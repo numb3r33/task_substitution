@@ -19,7 +19,7 @@ entries:
       title: Model
       url: /model
     - output: web,pdf
-      title: Runner
+      title: RecoverMissing
       url: /recover_missing
     - output: web,pdf
       title: External Data

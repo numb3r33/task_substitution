@@ -4,7 +4,7 @@
     "Core": "/core",
     "Dataset": "/data",
     "Model": "/model",
-    "Runner": "/recover_missing",
+    "RecoverMissing": "/recover_missing",
     "External Data": "/external_data",
     "TrainTestSimilarity": "/train_test_similarity"
   }

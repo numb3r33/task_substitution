@@ -2,6 +2,8 @@
 > Solve an auxiliary task using ML.
 
 
+### This library was created by using [nbdev](https://github.com/fastai/nbdev), please check it out.
+
 **Task Substitution** is a method of solving an auxiliary problem ( with different features and different target ) in order to better understand the initial problem and solving it efficiently. 
 
 Let's take a look at standard machine learning task, in the figure below you see a regression task with features `f1`, `f2`, `f3` and target variable `y`.
@@ -54,9 +56,16 @@ We create a new target called `is_test` which denotes whether a row belongs to t
 
 **Then we combine training and test set and train a model to predict whether a row comes from train or test set, if our model performs well then we know that these two datasets are from different distributions.**
 
+We would still have to dig deep into looking at whether that's the case but the above method can help identifying which features are have drifted apart in train and test datasets. If you look at feature importance of the model that was used to separated train and test apart you can identify such features.
+
 ## Install
 
-`pip install task_substitution`
+For an editable install, use the following:
+
+```
+git clone https://github.com/numb3r33/task_substitution.git
+pip install -e task_substitution
+```
 
 ## How to use
 
@@ -65,6 +74,9 @@ We create a new target called `is_test` which denotes whether a row belongs to t
 >Currently we only support missing value recovery for numerical features, we plan to extend support for other feature types as well. Also the model currently uses LightGBM model to recover missing values.
 
 ```
+from task_substitution.recover_missing import *
+from sklearn.metrics import mean_squared_error
+
 train = train.drop('original_target', axis=1)
 
 model_args = {
@@ -102,6 +114,10 @@ train_recovered = rec.run(train)
 >We use LightGBM model to predict whether a row comes from test or train distribution.
 
 ```
+import lightgbm as lgb
+from task_substitution.train_test_similarity import *
+from sklearn.metrics import roc_auc_score
+
 train = train.drop('original_target', axis=1)
 
 split_args = {'test_size': 0.2, 'random_state': 41}
@@ -125,4 +141,12 @@ tts = TrainTestSimilarity(cat_flds=[],
                           split_args=split_args, 
                           model_args=model_args)
 tts.run(train, test)
+
+# to get feature importance
+fig, ax = plt.subplots(1, figsize=(16, 10)
+lgb.plot_importance(tts.trained_model, ax=ax, max_num_features=5, importance_type='gain')
 ```
+
+## Contributing
+
+If you want to contribute to `task_substitution` please refer to [contributions guidelines](./CONTRIBUTING.md)
