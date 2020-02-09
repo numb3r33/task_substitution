@@ -32,7 +32,7 @@ summary: "Solve an auxiliary task using ML."
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>{% include image.html height="100/" max-width="200" file="/task_substitution/images/training_set.png" %}</p>
+<p>{% include image.html file="/task_substitution/images/training_set.png" %}</p>
 
 </div>
 </div>
@@ -46,27 +46,28 @@ summary: "Solve an auxiliary task using ML."
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>{% include image.html height="100/" max-width="200" file="/task_substitution/images/test.png" %}</p>
+<p>{% include image.html file="/task_substitution/images/test.png" %}</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exploratory-Data-Analysis">Exploratory Data Analysis<a class="anchor-link" href="#Exploratory-Data-Analysis">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We start off looking at the data itself and look for relationships of different features among themselves and with the target variable. There can be many features with <em>missing values</em> or <em>outliers</em> which needs to be understood. It is possible that there is a relationship between a missing value and values of other features.</p>
+<p><strong>Exploratory Data Analysis</strong></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Recover-Missing-Values">Recover Missing Values<a class="anchor-link" href="#Recover-Missing-Values">&#182;</a></h4>
+<p>First step we take to solve the problem is to look at the data, there can be many features with <em>missing values</em> or <em>outliers</em> which needs to be understood. It is possible that there is a relationship between a missing value and values of other features.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Recover-Missing-Values">Recover Missing Values<a class="anchor-link" href="#Recover-Missing-Values">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -79,7 +80,7 @@ summary: "Solve an auxiliary task using ML."
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>{% include image.html height="100/" max-width="200" file="/task_substitution/images/missing_full.png" %}</p>
+<p>{% include image.html file="/task_substitution/images/missing_full.png" %}</p>
 
 </div>
 </div>
@@ -93,14 +94,14 @@ summary: "Solve an auxiliary task using ML."
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>{% include image.html height="100/" max-width="200" file="/task_substitution/images/missing_train.png" %}</p>
+<p>{% include image.html file="/task_substitution/images/missing_train.png" %}</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>{% include image.html height="100/" max-width="200" file="/task_substitution/images/missing_test.png" %}</p>
+<p>{% include image.html file="/task_substitution/images/missing_test.png" %}</p>
 
 </div>
 </div>
@@ -115,13 +116,83 @@ summary: "Solve an auxiliary task using ML."
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Check-Train-Test-Distributions">Check Train Test Distributions<a class="anchor-link" href="#Check-Train-Test-Distributions">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Whenever we train a model we want to use it on a new sample, but what if the new sample comes from a different distribution compared to the data on which the model was trained on. When we deploy our solutions on production we want to be very careful of this change as our models would fail if there is a mismatch in train and test sets. We can pose this problem as an auxiliary task and create a new binary target <code>y</code>, where <code>1</code> represents whether row comes from <code>test</code> set and <code>0</code> represents whether it comes from <code>train</code> set and then we train our model to predict whether a row comes from <code>train</code> or <code>test</code> set if the performance ( e.g. <code>AUC</code> score ) is high we can conclude that the train and test set come from different distributions. Ofcourse, we need to remove the <code>original target</code> from the analysis.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>{% include image.html file="/task_substitution/images/ttm_train.png" %}</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>{% include image.html file="/task_substitution/images/ttm_test.png" %}</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>In the above images you can see two different datasets, we want to verify whether these two come from same distributions or not.</strong></p>
+<p>Consider the first example set as training set and second one as test set for this example.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>{% include image.html file="/task_substitution/images/ttm_train_with_target.png" %}</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>{% include image.html file="/task_substitution/images/ttm_test_with_target.png" %}</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We create a new target called <code>is_test</code> which denotes whether a row belongs to test set or not.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>{% include image.html file="/task_substitution/images/ttm_train_test_combined.png" %}</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Then we combine training and test set and train a model to predict whether a row comes from train or test set, if our model performs well then we know that these two datasets are from different distributions.</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Install">Install<a class="anchor-link" href="#Install">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>pip install your_project_name</code></p>
+<p><code>pip install task_substitution</code></p>
 
 </div>
 </div>
@@ -134,7 +205,97 @@ summary: "Solve an auxiliary task using ML."
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Fill me in please! Don't forget code examples:</p>
+<p><strong>Recover Missing Values</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>Currently we only support missing value recovery for numerical features, we plan to extend support for other feature types as well. Also the model currently uses LightGBM model to recover missing values.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>train = train.drop('original_target', axis=1)
+
+model_args = {
+          'objective': 'regression',
+          'learning_rate': 0.1,
+          'num_leaves': 31,
+          'min_data_in_leaf': 100,
+          'num_boost_round': 100,
+          'verbosity': -1,
+          'seed': 41
+             }
+
+split_args = {
+    'test_size': .2,
+    'random_state': 41
+}
+
+# target_fld: feature with missing values.
+# cat_flds: categorical features in the original dataset.
+# ignore_flds: features you want to ignore. ( these won't be used by LightGBM model to recover missing values)
+
+rec = RecoverMissing(target_fld='f3',
+                     cat_flds=[],
+                     ignore_flds=['f2'],
+                     perf_fn=lambda tr,pe: np.sqrt(mean_squared_error(tr, pe)),
+                     split_args=split_args,
+                     model_args=model_args
+                    )
+
+train_recovered = rec.run(train)</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Check train test distributions</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>We use LightGBM model to predict whether a row comes from test or train distribution.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>train = train.drop('original_target', axis=1)
+
+split_args = {'test_size': 0.2, 'random_state': 41}
+
+model_args = {
+    'num_boost_round': 100,
+    'objective': 'binary',
+    'learning_rate': 0.1,
+    'num_leaves': 31,
+    'nthread': -1,
+    'verbosity': -1,
+    'seed': 41
+}
+
+# cat_flds: categorical features in the original dataset.
+# ignore_flds: features you want to ignore. ( these won't be used by LightGBM model )
+
+tts = TrainTestSimilarity(cat_flds=[], 
+                          ignore_flds=None,
+                          perf_fn=roc_auc_score,
+                          split_args=split_args, 
+                          model_args=model_args)
+tts.run(train, test)</code></pre>
 
 </div>
 </div>
