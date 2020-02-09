@@ -60,6 +60,12 @@ We would still have to dig deep into looking at whether that's the case but the 
 
 ## Install
 
+task_substitution in on pypi:
+
+```
+pip install task_substitution
+```
+
 For an editable install, use the following:
 
 ```
