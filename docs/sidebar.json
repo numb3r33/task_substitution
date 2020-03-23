@@ -6,6 +6,7 @@
     "Model": "/model",
     "RecoverMissing": "/recover_missing",
     "External Data": "/external_data",
-    "TrainTestSimilarity": "/train_test_similarity"
+    "TrainTestSimilarity": "/train_test_similarity",
+    "Feature Selection": "/feature_selection"
   }
 }
