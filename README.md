@@ -58,6 +58,23 @@ We create a new target called `is_test` which denotes whether a row belongs to t
 
 We would still have to dig deep into looking at whether that's the case but the above method can help identifying which features are have drifted apart in train and test datasets. If you look at feature importance of the model that was used to separated train and test apart you can identify such features.
 
+
+## Feature Selection using Null Importance
+
+Often we create many features to enhance the power of our ML model, but not all features are beneficial to model performance. There needs to be a way to identify
+features which can introduce `noise` to the model and hence must be removed. We can make use of `null importance` to identify and remove such features.
+
+- Use LightGBM model to train on all features and obtain feature importance ( gain ), call it gain_1
+- For the same data shuffle the target variable and train model and obtain feature importance ( gain ), call it gain_2
+- Calculate ratio = gain_2 / gain_1 and remove features with ratio > 3.
+- Use the remaining features to train the model again.
+
+**Note: The ratio threshold of `3` seems arbitrary here, but we can treat this as `hyper-parameter` and choose the value that gives us the best result on the CV.**
+
+Dataframe representing feature importance of useful, useless model and their ratio.
+<img src="images/feature_imp.png">
+
+
 ## Install
 
 task_substitution in on pypi:
@@ -151,6 +168,36 @@ tts.run(train, test)
 # to get feature importance
 fig, ax = plt.subplots(1, figsize=(16, 10)
 lgb.plot_importance(tts.trained_model, ax=ax, max_num_features=5, importance_type='gain')
+```
+
+**Feature Selection using Null Importance**
+
+>We use LightGBM model to remove features based on null importance.
+
+```
+from sklearn.datasets import load_boston
+data = load_boston()
+
+X = pd.DataFrame(data['data'], columns=data['feature_names'])
+y = pd.Series(data['target'])
+
+model_args = {
+    'num_boost_round': 300,
+    'objective': 'regression',
+    'learning_rate': 0.1,
+    'num_leaves': 31,
+    'nthread': -1,
+    'verbosity': -1,
+    'seed': 41
+}
+
+print(f'Feature list: {X.columns.tolist()}')
+fs = FeatureSelection(model_args)
+selected_features = fs.select_features(X, y)
+print(f'Selected features: {selected_features}')
+
+# ratio of feature importance of useless / useful model
+print(fs.ratio_df)
 ```
 
 ## Contributing
