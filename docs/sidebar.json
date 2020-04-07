@@ -7,6 +7,7 @@
     "RecoverMissing": "/recover_missing",
     "External Data": "/external_data",
     "TrainTestSimilarity": "/train_test_similarity",
-    "Feature Selection": "/feature_selection"
+    "Feature Selection": "/feature_selection",
+    "Local Feature Importance": "/gbdt_local_feature_importance"
   }
 }
