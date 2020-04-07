@@ -74,6 +74,17 @@ features which can introduce `noise` to the model and hence must be removed. We 
 Dataframe representing feature importance of useful, useless model and their ratio.
 <img src="images/feature_imp.png">
 
+## Feature Importance
+
+Gradient Boosting Trees are very powerful methods when it comes to solving problems in industry and often are the first choice of every practitioner. We often to look at feature importance which different implementations of GBDT provide in help us understanding what features are useful. But during the inference when we have to predict for an unseen example, e.g. in a classification task if our model spits out `0` or `1` it would be useful to know which features were instrumental in identifying it as positive or negative class. This formulation can be extended to multi-classification and regression problems.
+
+- This module implements this [paper](http://www.cs.sjtu.edu.cn/~kzhu/papers/kzhu-infocode.pdf)
+- It currently supports XGBoost model and will soon support other implementations.
+- We just pass our trained model and it converts the tree representation into a dataframe.
+<img src="images/trees_to_df.png">
+- Then we calculate score for each node of the tree where we start off from the terminal node and then propagate it up to the root node.
+<img src="images/feature_contribution.png">
+
 
 ## Install
 
@@ -199,6 +210,25 @@ print(f'Selected features: {selected_features}')
 # ratio of feature importance of useless / useful model
 print(fs.ratio_df)
 ```
+
+**Feature Importance for GBDT**
+
+>Make your GBDT more explainable by calculating feature contribution that reveals the relationship between specific instance and related output. Now in addition to global feature importance we can breakdown our predictions and find out which features played positive or negative role during inference.
+
+```
+x,y = make_regression(n_samples=1000,n_features=6,n_informative=3)
+xtr, xval, ytr, yval = train_test_split(x, y, test_size=0.5, random_state=41)
+
+model = xgb.XGBRegressor(objective='reg:squarederror', n_estimators=10, max_depth=4)
+model.fit(xtr,ytr)
+
+lfi     = LocalFeatureImportance(model)
+scores  = lfi.propagate_scores()
+
+si = pd.DataFrame(xval[5:6, :], columns=['f0', 'f1', 'f2', 'f3', 'f4', 'f5'])
+fc = lfi.get_fi(scores, si)
+```
+
 
 ## Contributing
 
